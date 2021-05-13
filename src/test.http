@@ -1,0 +1,4 @@
+POST http://chat-agent1-dmitriev-5.apps.ocp-public.sbercloud.ru/startChatting
+Content-Type: text/plain
+
+###

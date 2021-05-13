@@ -1,4 +1,0 @@
-POST http://chat-agent1-service-dmitriev-5.apps.ocp-public.sbercloud.ru:5555
-Content-Type: text/plain
-
-###

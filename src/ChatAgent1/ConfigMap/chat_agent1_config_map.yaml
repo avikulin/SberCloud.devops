@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: chat-agent1-config-map
 data:
-  controller-config.yaml: |-
-    controller-properties:
+  chat-agent-config.yaml: |-
+    chat-agent-properties:
       connection:
-        url: http://chat-agent1-service-dmitriev-5.apps.ocp-public.sbercloud.ru:8080/sendMsg2Agent/
+        url: http://chat-agent2-dmitriev-5.apps.ocp-public.sbercloud.ru/sendMsg2Agent/
