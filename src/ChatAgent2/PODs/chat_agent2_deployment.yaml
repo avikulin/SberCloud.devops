@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: chat-agent2-deployment
+spec:
+  progressDeadlineSeconds: 1200
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    name: chat-agent2-pod
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        name: chat-agent2-pod
+    spec:
+      containers:
+        - args:
+          - '-c'
+          - >-
+            java -server -jar
+            -XX:+UseContainerSupport -XX:+AlwaysActAsServerClassMachine
+            -XX:+ExitOnOutOfMemoryError -Xmx300m app.jar
+          command:
+            - /bin/bash
+          image:  avikulin/simple-chat-agent:latest
+          imagePullPolicy: IfNotPresent
+          name: spring-chat-controller
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            volumeMounts:
+              - name: controller-config-volume
+                mountPath: /opt/app/config
+      volumes:
+        - name: controller-config-volume
+          configMap:
+            name: chat-agent2-config-map
+  triggers:
+    - type: ConfigChange

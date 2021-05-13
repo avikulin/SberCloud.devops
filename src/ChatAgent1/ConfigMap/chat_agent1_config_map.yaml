@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chat-agent1-config-map
+data:
+  controller-config.yaml: |-
+    controller-properties:
+      connection:
+        url: http://chat-agent1-service-dmitriev-5.apps.ocp-public.sbercloud.ru:8080/sendMsg2Agent/
